@@ -25,19 +25,17 @@ sudo apt-get install -y apache2
 
 echo ">>>> Instalando PHP 5.6"
 echo "-------------------------------"
-sudo apt-get install -y -qq wget php5.6
+sudo apt-get install -y -qq wget php5
 echo ">>>> Instalando libapache2-mod-php5.6"
-sudo apt-get install -y -qq libapache2-mod-php5.6
+sudo apt-get install -y -qq libapache2-mod-php5
 echo ">>>> Instalando librería GD"
-sudo apt-get install -y -qq php5.6-gd
+sudo apt-get install -y -qq php5-gd
 echo ">>>> Instalando el servidor MySQL"
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password prestashop'
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password prestashop'
-sudo apt-get install -y -qq mysql-server-5.5
-sudo apt-get install -y php5.6-xml
-sudo apt-get install -y php5.6-mcrypt
-sudo apt-get install -y php5.6-mbstring
-sudo apt-get install -y php5.6-mysql
+sudo apt-get install -y -qq mysql-server-5.5 php5-mysql            
+sudo apt-get install -y php5-xml php5-mcrypt php5-mbstring php5-mysql
+sudo apt-get install -y php5.6-xml php5.6-mbstring
 
 sudo a2enmod rewrite
 
@@ -59,11 +57,17 @@ wget https://download.prestashop.com/download/old/$prestaShopFile --no-verbose
 echo "Instalando PrestaShop"
 echo "---------------------"
 sudo apt-get install -y unzip
-cd /var/www/html
-unzip -qq /home/vagrant/$prestaShopFile
-#mv prestashop/* .
-#rm Install_PrestaShop.html
+cd /var/www
+unzip -qq /home/vagrant/$prestaShopFile -d /var/www
+mv prestashop/* .
+rm Install_PrestaShop.html
 
 # Create database
 
 mysql -uroot -pprestashop -e 'create database prestashop'
+
+
+echo "Datos del servidor MySQL:"
+echo "    Nombre de la base de datos: prestashop"
+echo "    Usuario: root"
+echo "    Contraseña: prestashop"

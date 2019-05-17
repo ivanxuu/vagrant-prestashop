@@ -12,7 +12,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "hashicorp/precise64"
 
-  config.vm.synced_folder "./prestashop", "/var/www/html/prestashop",
+  config.vm.synced_folder "./prestashop", "/var/www",
     owner: "vagrant",
     group: "www-data",
     mount_options: ["dmode=775,fmode=664"],
